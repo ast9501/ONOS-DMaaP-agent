@@ -206,10 +206,12 @@ class GetDmaapMsg {
         while (status) {
             try {
                 status = false;
-                String dmaapAddr = "http://127.0.0.1:3904";
+		String dmaapAddr = System.getenv("dmaap_ip");
+                String dmaapUrl = "http://" + dmaapAddr + ":3904";
                 String dmaapEvnt = "/events/unauthenticated.VES_PNFREG_OUTPUT/";
                 String dmaapUser = "users/sdn-r?timeout=20000&limit=1";
-                URL target = new URL(dmaapAddr + dmaapEvnt + dmaapUser);
+		log.info("Register to dmaap: " + dmaapUrl + dmaapEvnt + dmaapUser);
+                URL target = new URL(dmaapUrl + dmaapEvnt + dmaapUser);
                 URLConnection conn = target.openConnection();
 
                 // Not required?
